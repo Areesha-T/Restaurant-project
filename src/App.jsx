@@ -17,45 +17,46 @@ function App() {
   
   const categories = ['All', 'Pizza', 'Burger','BBQ & Grills', 'Rice Bowls', 'Seafood', 'Desserts', 'Beverages'];
 
-  const fullMenuUrl = 'http://192.168.18.245:5173';
+  // Initial local static items for Vercel presentation
+  const initialMenuItems = [
+    {
+      id: '1',
+      name: 'Classic Burger',
+      price: 450,
+      src: '/models/burger.glb',
+      category: 'Burger'
+    },
+    {
+      id: '2',
+      name: 'Special Pizza',
+      price: 1200,
+      src: '/models/pizza.glb',
+      category: 'Pizza'
+    }
+  ];
 
-  // 1. Fetch Menu
-  const fetchMenuItems = () => {
-    fetch('http://192.168.18.245:5000/api/menu')
-      .then((res) => res.json())
-      .then((data) => setMenuItems(data))
-      .catch((err) => console.error('Error fetching menu:', err));
-  };
-
+  // 1. Initial Load (No Local IP API Call)
   useEffect(() => {
-    fetchMenuItems();
+    setMenuItems(initialMenuItems);
   }, []);
 
-  // 2. Add Item Handler with Category
+  // 2. Add Item Handler with Local React State
   const handleAddItemSubmit = (e) => {
     e.preventDefault();
     const newItemData = { 
+      id: Date.now().toString(),
       name: newName, 
       price: Number(newPrice), 
       src: newSrc,
       category: newCategory 
     };
 
-    fetch('http://192.168.18.245:5000/api/menu', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newItemData)
-    })
-      .then((res) => res.json())
-      .then(() => {
-        alert('New Item Added Successfully! 👌');
-        fetchMenuItems();
-        setNewName('');
-        setNewPrice('');
-        setNewSrc('');
-        setNewCategory('Pizza');
-      })
-      .catch((err) => console.error('Error adding item:', err));
+    setMenuItems((prevItems) => [...prevItems, newItemData]);
+    alert('New Item Added Successfully! 👌');
+    setNewName('');
+    setNewPrice('');
+    setNewSrc('');
+    setNewCategory('Pizza');
   };
 
   const addToCart = (item) => {
@@ -124,8 +125,8 @@ function App() {
           <div style={{ textAlign: 'center', paddingRight: '20px', paddingTop: '10px' }}>
           
             <button type="button" className="view-cart-btn" onClick={() => setIsCartOpen(true)}>
-          🛒 View Cart ({cart.length})
-           </button>
+            🛒 View Cart ({cart.length})
+            </button>
           </div>
           
            {isCartOpen && (
@@ -178,7 +179,7 @@ function App() {
             <center>
               <h1>Our Food Menu</h1>
               <h3>📱 Scan with Mobile to View Full Menu in AR</h3>
-              <QRCodeSVG value={fullMenuUrl} size={150} />
+              <QRCodeSVG value={window.location.href} size={150} />
             </center>
           </div>
           <hr />

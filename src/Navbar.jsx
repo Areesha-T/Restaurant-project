@@ -8,7 +8,7 @@ function Navbar({ userRole, setUserRole, selectedCategory, setSelectedCategory }
   return (
     <div>
       <div className="navbar-top">
-        <button  type="button"className="brand-btn" onClick={() => setActiveTab('HOME')}>Restaurant AR</button>
+        <button  type="button"className="brand-btn" onClick={() => setActiveTab('AR Restaurant')}>✨AromaAR</button>
         
         <div className="role-selector">
           <span>View Mode:</span>

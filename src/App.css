@@ -10,7 +10,40 @@ body {
   background-color: #fcfbf9;
   color: #0f172a;
 }
+/* Professional spacing */
+center {
+  padding: 60px 20px 80px !important;
+}
+/* Hero heading */
+center h1 {
+  font-size: 52px !important;
+  line-height: 1.15 !important;
+  letter-spacing: -1px !important;
+}
 
+/* Hero paragraph */
+center p:nth-of-type(2) {
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+}
+
+/* Category buttons */
+.category-btn {
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Navigation buttons */
+ul button {
+  transition: all 0.2s ease;
+}
+
+ul button:hover {
+  transform: translateY(-2px);
+}
 .brand-btn {
   background: transparent;
   border: none;
