@@ -24,19 +24,17 @@ body {
   transition: color 0.2s ease;
 }
 
-.brand-btn:hover {
-  color: #0d9488;
-}
 /* Navigation Bar (UL & LI) */
 ul {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
-  gap: 35px;
-  padding: 15px 0;
+  gap: 15px;
+  padding: 10px 0;
+  background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 30px;
+  margin: 0 auto 20px auto;
 }
 
 ul li {
@@ -117,8 +115,8 @@ center button:last-of-type:hover {
 }
 /* Footer Container */
 .footer {
-  background-color: #061826; /* Dark Navy Background */
-  color: #8a99ad;
+  background-color: #0b1528;
+  color: #ffffff;
   padding: 60px 80px 30px 80px;
   font-family: sans-serif;
 }
@@ -240,21 +238,6 @@ center button:last-of-type:hover {
   border-bottom: 1px solid #f1f5f9;
 }
 
-/* Brand Button / Title */
-.brand-btn,
-div > button:first-child {
-  background: transparent;
-  border: none;
-  font-size: 26px;
-  font-weight: 800;
-  color: #0f172a;
-  cursor: pointer;
-  letter-spacing: -0.5px;
-  margin: 0 0 12px 0;
-  display: block;
-  transition: color 0.2s ease;
-}
-
 .brand-btn:hover {
   color: #0d9488;
 }
@@ -334,21 +317,6 @@ div > button:first-child {
   background-color: #0d9488;
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
-}
-
-/* =========================================
-   3. MAIN NAVIGATION MENU (HOME, ABOUT, CONTACT)
-   ========================================= */
-ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  gap: 40px;
-  padding: 16px 0;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 35px;
 }
 
 ul li,
@@ -504,17 +472,6 @@ ul button:hover {
 .btn-close:hover {
   background-color: #e2e8f0;
 }
-/* Navigation container ko center aur clean karne ke liye */
-ul {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 15px !important;
-  list-style-type: none !important;
-  padding: 10px 0 !important;
-  margin: 0 auto 20px auto !important;
-}
-
 /* Bullets hatane ke liye */
 li {
   list-style: none !important;
@@ -643,4 +600,179 @@ ul li button:active {
   color: #0d9488 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15) !important;
+}
+/* Container ko wrapper overlay banayein taake layout intact rahe */
+.manager-portal, form {
+  max-width: 480px !important;
+  margin: 40px auto !important;
+  padding: 32px 28px !important;
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Heading ko card ke andar properly align aur style karne ke liye */
+h2, h3, form h2, form h3 {
+  text-align: center !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-top: 0 !important;
+  margin-bottom: 24px !important;
+  padding-bottom: 12px !important;
+  border-bottom: 2px solid #f1f5f9 !important;
+}
+
+/* Form Labels */
+form label, form div {
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  display: block !important;
+  margin-bottom: 6px !important;
+}
+
+/* Clean Input Fields */
+form input[type="text"],
+form input[type="number"],
+form select {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  margin-bottom: 18px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-size: 0.95rem !important;
+  background-color: #f8fafc !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+}
+
+/* Focus State */
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form select:focus {
+  border-color: #10b981 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Green Theme Button */
+form button,
+form input[type="submit"] {
+  width: 100% !important;
+  padding: 12px !important;
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  margin-top: 8px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+form button:hover,
+form input[type="submit"]:hover {
+  background-color: #059669 !important;
+}/* Specific Footer Reset & Fix */
+footer, .footer {
+  background-color: #0b1528 !important;
+  color: #ffffff !important;
+}
+
+/* Fix invisible dark headings */
+footer h3, footer h4, footer .footer-heading, footer div > h3, footer div > h4 {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+  border: none !important;
+  text-align: left !important;
+}
+
+/* Remove white background boxes from footer links */
+footer div, footer ul, footer li, footer a, footer p {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Link alignment and colors */
+footer a, footer p {
+  color: #cbd5e1 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+}
+
+footer a:hover {
+  color: #10b981 !important;
+}
+/* Direct fix for your original JSX inline layout */
+.menu-grid > div {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 380px !important; /* Locks all card heights equally */
+}
+
+/* Forces all 3D models into identical box size */
+.menu-grid model-viewer {
+  height: 180px !important;
+  width: 100% !important;
+}
+
+/* Light neutral color & exact bottom line alignment for Add to Cart button */
+.menu-grid button[type="button"] {
+  margin-top: auto !important;
+  width: 100% !important;
+  padding: 10px 14px !important;
+  background-color: #f1f5f9 !important; /* Soft neutral slate color */
+  color: #334155 !important;           /* Dark text */
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.menu-grid button[type="button"]:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+/* Footer brand heading fix: keeps RestaurantAR visible on dark background */
+.footer h2,
+.footer .footer-col h2 {
+  color: #ffffff !important;
+  text-align: left !important;
+  font-size: 26px !important;
+  font-weight: 500 !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+/* View Cart button */
+.view-cart-btn {
+  background-color: #0d9488 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.18) !important;
+}
+
+.view-cart-btn:hover {
+  background-color: #0f766e !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(13, 148, 136, 0.25) !important;
 }

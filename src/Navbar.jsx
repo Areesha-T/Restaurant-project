@@ -11,20 +11,20 @@ function Navbar({ userRole, setUserRole, selectedCategory, setSelectedCategory }
         <button  type="button"className="brand-btn" onClick={() => setActiveTab('HOME')}>Restaurant AR</button>
         
         <div className="role-selector">
-          <span>Select Role:</span>
+          <span>View Mode:</span>
           <button 
             type="button" 
             className={userRole === 'Customer' ? 'active' : ''} 
             onClick={() => setUserRole('Customer')}
           >
-            👤 Customer
+             Customer Menu
           </button>
           <button 
             type="button" 
             className={userRole === 'Manager' ? 'active' : ''} 
             onClick={() => setUserRole('Manager')}
           >
-            👨‍💼 Manager
+             Admin Portal
           </button>
         </div>
       </div>

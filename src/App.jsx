@@ -88,7 +88,7 @@ function App() {
 
       {userRole === 'Manager' && (
         <div style={{ padding: '20px' }}>
-          <h2>👨‍💼 Manager Portal - Add New Item</h2>
+          <h2> Add New Item</h2>
           <form onSubmit={handleAddItemSubmit}>
             <div>
               <label>Food Name: </label>
@@ -121,8 +121,11 @@ function App() {
 
       {userRole === 'Customer' && (
         <div>
-          <div style={{ textAlign: 'right', paddingRight: '20px', paddingTop: '10px' }}>
-            <button type="button" onClick={() => setIsCartOpen(true)}>🛒 View Cart ({cart.length})</button>
+          <div style={{ textAlign: 'center', paddingRight: '20px', paddingTop: '10px' }}>
+          
+            <button type="button" className="view-cart-btn" onClick={() => setIsCartOpen(true)}>
+          🛒 View Cart ({cart.length})
+           </button>
           </div>
           
            {isCartOpen && (
