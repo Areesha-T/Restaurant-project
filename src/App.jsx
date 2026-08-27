@@ -23,14 +23,14 @@ function App() {
       id: '1',
       name: 'Classic Burger',
       price: 450,
-      src: '/models/burger.glb',
+      src: '/burger.glb',
       category: 'Burger'
     },
     {
       id: '2',
       name: 'Special Pizza',
       price: 1200,
-      src: '/models/pizza.glb',
+      src: '/pizza.glb',
       category: 'Pizza'
     }
   ];
