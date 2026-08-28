@@ -34,7 +34,7 @@ function App() {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/menu')
+    fetch('https://slick-nails-check.loca.lt/api/menu')
       .then((res) => res.json())
       .then((data) => {
         if (data && data.length > 0) {
@@ -64,6 +64,7 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newItemData)
     })
+    
       .then((res) => res.json())
       .then((savedItem) => {
         setMenuItems((prevItems) => [...prevItems, savedItem]);
