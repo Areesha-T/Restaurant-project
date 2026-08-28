@@ -15,32 +15,40 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   
-  const categories = ['All', 'Pizza', 'Burger','BBQ & Grills', 'Rice Bowls', 'Seafood', 'Desserts', 'Beverages'];
+  // Single Source of Truth for Categories
+  const categories = ['All', 'Pizza', 'Burger', 'BBQ', 'Rice Bowls', 'Seafood', 'Desserts', 'Beverages'];
 
-  // Initial local static items for Vercel presentation
   const initialMenuItems = [
-    {
-      id: '1',
-      name: 'Classic Burger',
-      price: 450,
-      src: '/burger.glb',
-      category: 'Burger'
-    },
-    {
-      id: '2',
-      name: 'Special Pizza',
-      price: 1200,
-      src: '/pizza.glb',
-      category: 'Pizza'
-    }
+    { id: '1', name: 'Classic Beef Cheeseburger', price: 750, src: '/burger.glb', category: 'Burger' },
+    { id: '2', name: 'Italian Margherita Pizza', price: 1200, src: '/pizza.glb', category: 'Pizza' },
+    { id: '3', name: 'Grilled Whole Sea Fish', price: 950, src: '/fish_scan.glb', category: 'Seafood' },
+    { id: '4', name: 'Sizzling Mixed BBQ Platter', price: 950, src: '/bbq.glb', category: 'BBQ' },
+    { id: '5', name: 'Loaded Chicken Fried Rice', price: 1500, src: '/rice.glb', category: 'Rice Bowls' },
+    { id: '6', name: 'Special Combo Meal', price: 1500, src: '/meal.glb', category: 'BBQ' },
+    { id: '7', name: 'Traditional Chicken Mandi', price: 1150, src: '/Full_Chicken.glb', category: 'Rice Bowls' },
+    { id: '8', name: 'Crispy Fries With Drink', price: 500, src: '/french_fries.glb', category: 'Burger' },
+    { id: '9', name: 'Classic Honey Pancakes', price: 800, src: '/pancake.glb', category: 'Desserts' },
+    { id: '10', name: 'Creamy Alfredo Pasta', price: 850, src: '/pasta.glb', category: 'Rice Bowls' },
+    { id: '11', name: 'Cappuccino', price: 450, src: '/coffee_cup.glb', category: 'Beverages' },
+    { id: '12', name: 'Refreshing Soda', price: 350, src: '/drink.glb', category: 'Beverages' }
   ];
 
-  // 1. Initial Load (No Local IP API Call)
   useEffect(() => {
-    setMenuItems(initialMenuItems);
+    fetch('http://localhost:5000/api/menu')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setMenuItems(data);
+        } else {
+          setMenuItems(initialMenuItems);
+        }
+      })
+      .catch((err) => {
+        console.warn('Backend server connection failed, loading local fallback data.', err);
+        setMenuItems(initialMenuItems);
+      });
   }, []);
 
-  // 2. Add Item Handler with Local React State
   const handleAddItemSubmit = (e) => {
     e.preventDefault();
     const newItemData = { 
@@ -51,8 +59,21 @@ function App() {
       category: newCategory 
     };
 
-    setMenuItems((prevItems) => [...prevItems, newItemData]);
-    alert('New Item Added Successfully! 👌');
+    fetch('http://localhost:5000/api/menu', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newItemData)
+    })
+      .then((res) => res.json())
+      .then((savedItem) => {
+        setMenuItems((prevItems) => [...prevItems, savedItem]);
+        alert('New Item Added to Database Successfully! 👌');
+      })
+      .catch(() => {
+        setMenuItems((prevItems) => [...prevItems, newItemData]);
+        alert('New Item Added (Local Mode)! 👌');
+      });
+
     setNewName('');
     setNewPrice('');
     setNewSrc('');
@@ -66,14 +87,18 @@ function App() {
 
   const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
 
+  // Robust Normalization Filter (Handles Database Variances)
   const filteredItems = menuItems.filter((item) => {
     if (selectedCategory === 'All') return true;
     
     const selected = selectedCategory.trim().toLowerCase();
-    const itemCategory = item.category ? item.category.trim().toLowerCase() : '';
+    const itemCat = item.category ? item.category.trim().toLowerCase() : '';
     const itemName = item.name ? item.name.trim().toLowerCase() : '';
 
-    if (itemCategory === selected) return true;
+    // Direct match OR plural/singular loose match (e.g. dessert vs desserts)
+    if (itemCat === selected) return true;
+    if (itemCat.replace(/s$/, '') === selected.replace(/s$/, '')) return true;
+    
     return itemName.includes(selected);
   });
 
@@ -123,57 +148,58 @@ function App() {
       {userRole === 'Customer' && (
         <div>
           <div style={{ textAlign: 'center', paddingRight: '20px', paddingTop: '10px' }}>
-          
             <button type="button" className="view-cart-btn" onClick={() => setIsCartOpen(true)}>
-            🛒 View Cart ({cart.length})
+              🛒 View Cart ({cart.length})
             </button>
           </div>
           
-           {isCartOpen && (
-           <div className="cart-container">
-            <div className="cart-header">
-             <h2>🛒 Cart Status</h2>
-             <span className="cart-badge">{cart.length} Items</span>
+          {isCartOpen && (
+            <div className="cart-container">
+              <div className="cart-header">
+                <h2>🛒 Cart Status</h2>
+                <span className="cart-badge">{cart.length} Items</span>
               </div>
 
-            {cart.length === 0 ? (
-            <p className="cart-empty-msg">Your cart is empty.</p>
-               ) : (
-            <div>
-              <div className="cart-items-list">
-          {cart.map((cartItem, index) => (
-            <div key={index} className="cart-item-row">
-              <span className="cart-item-name">{cartItem.name}</span>
-              <strong className="cart-item-price">Rs. {cartItem.price}</strong>
+              {cart.length === 0 ? (
+                <p className="cart-empty-msg">Your cart is empty.</p>
+              ) : (
+                <div>
+                  <div className="cart-items-list">
+                    {cart.map((cartItem, index) => (
+                      <div key={index} className="cart-item-row">
+                        <span className="cart-item-name">{cartItem.name}</span>
+                        <strong className="cart-item-price">Rs. {cartItem.price}</strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="cart-total-row">
+                    <span>Total Bill:</span>
+                    <span className="cart-total-price">Rs. {totalAmount}</span>
+                  </div>
+                </div>
+              )}
+
+              <div className="cart-actions">
+                <button 
+                  type="button" 
+                  className="btn-submit" 
+                  onClick={() => alert('Order Submitted!')}
+                  disabled={cart.length === 0}
+                > 
+                  Submit Order
+                </button>
+
+                <button 
+                  type="button" 
+                  className="btn-close" 
+                  onClick={() => setIsCartOpen(false)}
+                >
+                  Close Cart
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-
-        <div className="cart-total-row">
-          <span>Total Bill:</span>
-          <span className="cart-total-price">Rs. {totalAmount}</span>
-        </div>
-      </div>
-    )}
-
-    <div className="cart-actions">
-      <button 
-        type="button" 
-        className="btn-submit" 
-        onClick={() => alert('Order Submitted!')}
-        disabled={cart.length === 0}
-      > Submit Order</button>
-
-      <button 
-        type="button" 
-        className="btn-close" 
-        onClick={() => setIsCartOpen(false)}
-      >
-        Close Cart
-      </button>
-        </div>
-      </div>
-       )}
+          )}
 
           <div>
             <center>

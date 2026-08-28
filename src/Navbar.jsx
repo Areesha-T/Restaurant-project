@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
-function Navbar({ userRole, setUserRole, selectedCategory, setSelectedCategory }) {
+function Navbar({ userRole, setUserRole, categories, selectedCategory, setSelectedCategory }) {
   const [activeTab, setActiveTab] = useState('HOME');
-
-  const categories = ['All', 'Pizza', 'Burger','BBQ & Grills', 'Rice Bowls', 'Seafood', 'Desserts', 'Beverages'];
 
   return (
     <div>
       <div className="navbar-top">
-        <button  type="button"className="brand-btn" onClick={() => setActiveTab('AR Restaurant')}>✨AromaAR</button>
+        <button type="button" className="brand-btn" onClick={() => setActiveTab('AR Restaurant')}>✨AromaAR</button>
         
         <div className="role-selector">
           <span>View Mode:</span>
@@ -72,9 +70,9 @@ function Navbar({ userRole, setUserRole, selectedCategory, setSelectedCategory }
               <div style={{ textAlign: 'left' }}>
                 <img src="/pic.png" alt="Story" />
               </div>
-        <div>✨ <strong>Realistic 3D Models:</strong> See dish portions & presentation in real-time.</div>
-        <div>🚀 <strong>Instant AR Preview:</strong> Place virtual dishes right on your physical table.</div>
-        <div>🍽️ <strong>Smarter Ordering:</strong> Order with complete confidence and zero surprises.</div>
+              <div>✨ <strong>Realistic 3D Models:</strong> See dish portions & presentation in real-time.</div>
+              <div>🚀 <strong>Instant AR Preview:</strong> Place virtual dishes right on your physical table.</div>
+              <div>🍽️ <strong>Smarter Ordering:</strong> Order with complete confidence and zero surprises.</div>
             </div>
           )}
 
